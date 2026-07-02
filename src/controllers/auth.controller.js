@@ -1,6 +1,3 @@
-const userModel = require("../models/user.model");
-let bcrypt = require('bcrypt');
-const { generateAccessToken, generateRefreshToken } = require("../utils/generateToken");
 const registerService = require("../services/auth.service");
 
 let registerController = async (req, res) => {

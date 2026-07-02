@@ -1,3 +1,7 @@
+const userModel = require("../models/user.model");
+let brypt = require('bcrypt');
+const { generateAccessToken, generateRefreshToken } = require("../utils/generateToken");
+
 let registerService = async (data) => {
     let { name, email, password } = data;
     try {
