@@ -1,13 +1,23 @@
-let express = require('express');
-const { registerController, loginController } = require('../controllers/auth.controller');
+let express = require("express");
+const {
+  registerController,
+  loginController,
+  getAccessTokenController,
+} = require("../controllers/auth.controller");
+const authMiddleware = require("../middleware/auth.middleware");
+
 let router = express.Router();
 
-router.post('/register', registerController,(req, res) => {
-   
+router.get("/me", authMiddleware, (req, res) => {
+  return res.status(200).json({
+    message: "Currently loggedIn user",
+    user: req.user,
+  });
 });
 
-router.post('/login', loginController,(req, res) => {
-   
-});
+router.get("/get-accessToken", getAccessTokenController);
+
+router.post("/register", registerController);
+router.post("/login", loginController);
 
 module.exports = router;

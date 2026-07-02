@@ -1,23 +1,27 @@
-const { default: mongoose, mongo } = require("mongoose");
+const { default: mongoose } = require("mongoose");
 
-let userSchema = new mongoose.Schema({
-    name : {
-        type : String
+let userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
     },
-    email : {
-        type : String,
-        required : [true, 'email is required']
+    email: {
+      type: String,
+      required: [true, "Email is required"],
     },
-    password : {
-        type : String,
-        required : [true, 'password is required']
+    password: {
+      type: String,
     },
-    refreshToken : {
-        type : String
-    }
-},{
-    timestamps : true,
-})
+    refreshToken: {
+      type: String,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-let userModel = mongoose.model("users",userSchema)
-module.exports = userModel
+
+
+let UserModel = mongoose.model("users", userSchema);
+module.exports = UserModel;
