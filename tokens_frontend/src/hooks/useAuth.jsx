@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../config/axiosInstance";
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -11,8 +12,13 @@ export const useAuth = () => {
     formState: { errors },
   } = useForm({ mode: "onTouched" });
 
-  const onLogin = (data) => {
-    console.log(data);
+  const onLogin = async(data) => {
+   try {
+     let res = await axiosInstance.post("/api/auth/login",data)
+     console.log(res)
+   } catch (error) {
+    console.log('error on login ',error);
+   }
   };
 
   const onRegister = (data) => {

@@ -2,7 +2,7 @@ import axios from 'axios'
 
 
 export let axiosInstance = axios.create({
-    baseURL : 'https://fakestoreapi.com',
+    baseURL : 'http://localhost:5173',
     // withCredentials: true
 })
 
