@@ -5,6 +5,7 @@ import Login from '../pages/Login'
 import MainLayout from '../layouts/MainLayout'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
+import NotFound from '../pages/NotFound'
 
 const AppRoutes = () => {
 
@@ -37,6 +38,11 @@ const AppRoutes = () => {
                     element : <Home/>
                 }
             ]
+        }
+        ,
+        {
+            path : "*",
+            element : <NotFound />
         }
     ])
 
