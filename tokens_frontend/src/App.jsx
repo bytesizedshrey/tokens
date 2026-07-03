@@ -1,11 +1,11 @@
 import React from 'react'
-import axios from 'axios'
+import { axiosInstance } from './config/axiosInstance'
 
 const App = () => {
 
   let getData = async () =>{
     try {
-      let res = await axios.get('')
+      let res = await axiosInstance.get('/products')
       console.log(res)
     } catch (error) {
       console.log(`error in api`, error)
