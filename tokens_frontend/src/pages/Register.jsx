@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 const EyeOpen = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -52,14 +52,14 @@ const getStrength = (pw) => {
 }
 
 const Rule = ({ met, text }) => (
-  <li className="pw-rule" style={{ color: met ? '#30d158' : '#444' }}>
+  <li className="pw-rule" style={{ color: met ? '#28a745' : '#aeaeb2' }}>
     <span
       className="pw-rule-dot"
       style={{
-        background: met ? '#30d158' : '#1a1a1a',
+        background: met ? '#28a745' : '#d0d6e0',
         boxShadow: met
-          ? '0 0.5px 0 rgba(255,255,255,0.15), 0 2px 4px rgba(0,0,0,0.7) inset, 0 0 6px rgba(48,209,88,0.3)'
-          : '0 0.5px 0 rgba(255,255,255,0.10), 0 2px 4px rgba(0,0,0,0.8) inset',
+          ? 'inset 1px 1px 3px rgba(0,100,30,0.25), 0 0 6px rgba(40,167,69,0.25)'
+          : 'inset 2px 2px 4px rgba(150,165,190,0.50), inset -1px -1px 3px rgba(255,255,255,0.80)',
         color: '#fff',
       }}
     >
@@ -70,17 +70,12 @@ const Rule = ({ met, text }) => (
 )
 
 const Register = () => {
-  let navigate = useNavigate();
+
   const [showPw, setShowPw] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm({ mode: 'onTouched' })
+  const { register, handleSubmit, watch, errors, onRegister, navigate } = useAuth()
 
   const password = watch('password', '')
   const strength = getStrength(password)
@@ -106,7 +101,7 @@ const Register = () => {
         <h1 className="auth-title">Create account</h1>
         <p className="auth-subtitle">Fill in your details to get started.</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(onRegister)} noValidate>
 
           {/* Full name */}
           <div className="field">

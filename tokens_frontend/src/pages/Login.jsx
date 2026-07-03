@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuth } from '../hooks/useAuth'
 
 const EyeOpen = () => (
   <svg
@@ -55,16 +55,10 @@ const Spinner = () => (
 );
 
 const Login = () => {
-  let navigate = useNavigate();
-
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({ mode: "onTouched" });
+  const { register, handleSubmit, errors, onLogin, navigate } = useAuth()
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -80,7 +74,7 @@ const Login = () => {
         <h1 className="auth-title">Sign in</h1>
         <p className="auth-subtitle">Enter your credentials to continue.</p>
 
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(onLogin)} noValidate>
           {/* Email */}
           <div className="field">
             <label htmlFor="login-email" className="field-label">
