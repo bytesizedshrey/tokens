@@ -15,14 +15,19 @@ export const useAuth = () => {
   const onLogin = async(data) => {
    try {
      let res = await axiosInstance.post("/api/auth/login",data)
-     console.log(res)
+     console.log('response from login',res)
    } catch (error) {
     console.log('error on login ',error);
    }
   };
 
-  const onRegister = (data) => {
-    console.log(data);
+  const onRegister = async(data) => {
+    try {
+      let res = await axiosInstance.post("/api/auth/register",data)
+      console.log(res)
+    } catch (error) {
+     console.log('error on register ',error);
+    }
   };
 
   return {
