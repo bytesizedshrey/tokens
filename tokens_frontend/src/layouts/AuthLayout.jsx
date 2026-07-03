@@ -1,5 +1,5 @@
 import React from 'react'
-import {Outlet} from 'raect-router'
+import {Outlet} from 'react-router-dom'
 
 const AuthLayout = () => {
   return (
