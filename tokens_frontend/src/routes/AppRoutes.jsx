@@ -1,15 +1,33 @@
-import React from 'react'
-import  {createBrowserRouter, RouterProvider} from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import AuthLayout from '../layouts/AuthLayout'
 import Login from '../pages/Login'
 import MainLayout from '../layouts/MainLayout'
 import Register from '../pages/Register'
 import Home from '../pages/Home'
 import NotFound from '../pages/NotFound'
-import Protected from './protected/protected'
+import Protected from './protected/Protected'
 import Public from './protected/Public'
+import { axiosInstance } from '../config/axiosInstance'
+import { addUser, removeUser } from '../state/authReducer'
 
 const AppRoutes = () => {
+    console.log('appRoutes')
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        (async () => {
+            try {
+                let res = await axiosInstance.get('/api/auth/me')
+                dispatch(addUser(res?.data?.user))
+            } catch (error) {
+                dispatch(removeUser())
+                console.log('error in /me api', error)
+            }
+        })()   // <-- was missing, so IIFE never ran
+    }, [])
+
 
     let router = createBrowserRouter([
         {

@@ -4,7 +4,9 @@ import { Navigate, Outlet } from 'react-router-dom'
 
 const Protected = () => {
 
-    let {user} = useSelector((store)=> store.auth)
+    let {user,isLoading} = useSelector((store)=> store.auth)
+
+    if(isLoading) return <h1>Loading</h1>
 
     if(!user) return <Navigate to={"/"}/>
 

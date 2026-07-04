@@ -3,6 +3,7 @@ const {
   registerController,
   loginController,
   getAccessTokenController,
+  logoutController,
 } = require("../controllers/auth.controller");
 const authMiddleware = require("../middleware/auth.middleware");
 
@@ -19,5 +20,6 @@ router.get("/get-accessToken", getAccessTokenController);
 
 router.post("/register", registerController);
 router.post("/login", loginController);
+router.post("/logout", logoutController);
 
 module.exports = router;

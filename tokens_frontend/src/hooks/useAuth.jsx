@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { axiosInstance } from "../config/axiosInstance";
-import { addUser } from "../state/authReducer";
+import { addUser, removeUser } from "../state/authReducer";
 
 export const useAuth = () => {
   const navigate = useNavigate();
@@ -29,8 +29,18 @@ export const useAuth = () => {
     try {
       let res = await axiosInstance.post("/api/auth/register",data)
       console.log(res)
+      dispatch(addUser(res.data.user))
     } catch (error) {
      console.log('error on register ',error);
+    }
+  };
+
+  const onLogout = async () => {
+    try {
+      await axiosInstance.post("/api/auth/logout")
+      dispatch(removeUser())
+    } catch (error) {
+      console.log('error on logout ', error);
     }
   };
 
@@ -42,5 +52,6 @@ export const useAuth = () => {
     navigate,
     onLogin,
     onRegister,
+    onLogout,
   };
 };
