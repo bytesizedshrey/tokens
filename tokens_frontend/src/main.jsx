@@ -1,7 +1,12 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import AppRoutes from './routes/AppRoutes.jsx'
+import { Provider } from 'react-redux'
+import store from './config/store.js'
 
 createRoot(document.getElementById('root')).render(
-    <AppRoutes />
+    <Provider store={store}>
+        <AppRoutes />
+    </Provider>
 )
+

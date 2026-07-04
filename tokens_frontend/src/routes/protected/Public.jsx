@@ -1,12 +1,13 @@
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Navigate, Outlet } from 'react-router-dom'
 
 const Public = () => {
-  return (
-    <div>
-        return <Outlet/>
-    </div>
-  )
+
+    let {user} = useSelector((store)=> store.auth)
+    if(user) return <Navigate to={"/home"}/>
+
+  return <Outlet/>
 }
 
 export default Public

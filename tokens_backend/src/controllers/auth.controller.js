@@ -5,49 +5,57 @@ const {
 } = require("../services/auth.service");
 
 let registerController = async (req, res) => {
-  let { accessToken, refreshToken, newUser } = await registerService(req.body);
+  try {
+    let { accessToken, refreshToken, newUser } = await registerService(req.body);
 
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-    maxAge: 10 * 60 * 1000,
-  });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+      maxAge: 10 * 60 * 1000,
+    });
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-    maxAge: 24 * 60 * 60 * 1000,
-  });
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
-  return res.status(201).json({
-    message: "USer registered successfully",
-    user: newUser,
-  });
+    return res.status(201).json({
+      message: "User registered successfully",
+      user: newUser,
+    });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
 };
 
 let loginController = async (req, res) => {
-  let { accessToken, refreshToken, isExisted } = await loginService(req.body);
+  try {
+    let { accessToken, refreshToken, isExisted } = await loginService(req.body);
 
-  res.cookie("accessToken", accessToken, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-    maxAge: 60 * 1000,
-  });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+      maxAge: 60 * 1000,
+    });
 
-  res.cookie("refreshToken", refreshToken, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: false,
-    maxAge: 24 * 60 * 60 * 1000,
-  });
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
 
-  return res.status(200).json({
-    message: "User loggedIn",
-    user: isExisted,
-  });
+    return res.status(200).json({
+      message: "User logged in",
+      user: isExisted,
+    });
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
 };
 
 let getAccessTokenController = async (req, res) => {
